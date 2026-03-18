@@ -1,182 +1,539 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Welcome to Suchith's Group 🌍</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Chetan's Meditation Group 🧘</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
 }
 
-body{
-background:#f3f6fb;
-color:#333;
+:root {
+  --sand:    #f5efe6;
+  --pebble:  #e8ddd0;
+  --moss:    #7a9e87;
+  --sage:    #a8c5b0;
+  --clay:    #c4876a;
+  --dusk:    #3d4f5c;
+  --ink:     #2a3035;
+  --mist:    #8fa3ab;
+  --cream:   #fdfaf6;
 }
 
-/* HERO SECTION */
+html { scroll-behavior: smooth; }
 
-.hero{
-height:60vh;
-background-image:url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
-background-size:cover;
-background-position:center;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-position:relative;
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
 }
 
-.hero::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.4);
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--moss);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--moss);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.18s ease;
+  opacity: 0.5;
 }
 
-.hero-content{
-position:relative;
-z-index:2;
+/* ── BREATHING ORBS (bg decoration) ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: breathe 8s ease-in-out infinite alternate;
+}
+.orb-1 { width:500px; height:500px; background: radial-gradient(circle, rgba(168,197,176,0.22), transparent 70%); top:-150px; left:-150px; }
+.orb-2 { width:400px; height:400px; background: radial-gradient(circle, rgba(196,135,106,0.15), transparent 70%); bottom:-100px; right:-80px; animation-delay: 3s; }
+.orb-3 { width:300px; height:300px; background: radial-gradient(circle, rgba(122,158,135,0.12), transparent 70%); top:40%; left:60%; animation-delay:5s; }
+
+@keyframes breathe {
+  from { transform: scale(1);   opacity: 0.6; }
+  to   { transform: scale(1.18); opacity: 1;  }
 }
 
-.hero h1{
-font-size:3rem;
-font-weight:700;
-margin-bottom:10px;
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 40px 20px;
+  z-index: 1;
 }
 
-.hero p{
-font-size:1.2rem;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1545389336-cf090694435e?w=1600");
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.45) saturate(0.7);
+  z-index: -1;
 }
 
-/* MAIN CONTAINER */
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(42,48,53,0.35) 0%,
+    rgba(42,48,53,0.15) 50%,
+    rgba(42,48,53,0.6) 100%
+  );
+  z-index: -1;
 }
 
-/* ABOUT */
+/* slow ripple ring */
+.ripple {
+  position: absolute;
+  width: 280px; height: 280px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 50%;
+  animation: ripple-out 5s ease-out infinite;
+}
+.ripple:nth-child(2) { animation-delay: 1.6s; }
+.ripple:nth-child(3) { animation-delay: 3.2s; }
 
-.about{
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
-margin-bottom:40px;
-text-align:center;
+@keyframes ripple-out {
+  0%   { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
 }
 
-.about h2{
-color:#2563eb;
-margin-bottom:10px;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  animation: riseUp 1.4s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-/* DESTINATIONS */
-
-.destinations h2{
-text-align:center;
-margin-bottom:25px;
-color:#2563eb;
+@keyframes riseUp {
+  from { opacity:0; transform: translateY(50px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 
-.card-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+.hero-symbol {
+  font-size: 2.6rem;
+  margin-bottom: 24px;
+  display: block;
+  animation: float 6s ease-in-out infinite;
 }
 
-.card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 6px 20px rgba(0,0,0,0.08);
-transition:0.3s;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
 }
 
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
+.hero-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 20px;
 }
 
-.card img{
-width:100%;
-height:170px;
-object-fit:cover;
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.0;
+  margin-bottom: 24px;
 }
 
-.card h3{
-padding:15px;
+.hero h1 em {
+  font-style: italic;
+  color: var(--sage);
 }
 
-/* MESSAGE FORM */
-
-.form-section{
-margin-top:40px;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
+.hero-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--sage);
+  margin: 0 auto 22px;
+  opacity: 0.7;
 }
 
-.form-section h2{
-text-align:center;
-margin-bottom:15px;
-color:#2563eb;
+.hero p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+  line-height: 1.85;
+  letter-spacing: 0.03em;
 }
 
-input[type="text"]{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:8px;
-margin-bottom:10px;
-font-size:15px;
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+  animation: fade-bob 2.5s ease-in-out infinite;
 }
 
-input[type="text"]:focus{
-outline:none;
-border-color:#2563eb;
+.scroll-hint span { font-size: 1.1rem; }
+
+@keyframes fade-bob {
+  0%, 100% { opacity:0.4; transform:translateX(-50%) translateY(0); }
+  50%       { opacity:0.9; transform:translateX(-50%) translateY(6px); }
 }
 
-input[type="submit"]{
-width:100%;
-padding:12px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
+/* ── CONTAINER ── */
+.container {
+  max-width: 1080px;
+  margin: auto;
+  padding: 80px 28px;
+  position: relative;
+  z-index: 1;
 }
 
-input[type="submit"]:hover{
-background:#1d4ed8;
+/* ── ABOUT ── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 80px;
+  box-shadow: 0 12px 60px rgba(42,48,53,0.07);
+  animation: riseUp 1s ease 0.2s both;
 }
 
-/* FOOTER */
+.about-accent {
+  background: linear-gradient(160deg, var(--moss), var(--sage));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  padding: 50px 30px;
+}
 
-.footer{
-text-align:center;
-margin-top:30px;
-color:#777;
+.about-body {
+  padding: 42px 44px;
+}
+
+.about-body h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.about-body h2 em { font-style: italic; color: var(--moss); }
+
+.about-body p {
+  color: var(--mist);
+  font-size: 0.96rem;
+  line-height: 1.85;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.section-header h2 em { font-style: italic; color: var(--moss); }
+
+.section-header .sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-top: 8px;
+}
+
+.deco-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px auto 0;
+}
+
+.deco-line span { width: 40px; height: 1px; background: var(--pebble); }
+.deco-line i { color: var(--sage); font-size: 0.8rem; font-style: normal; }
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+  margin-bottom: 80px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 30px rgba(42,48,53,0.06);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 60px rgba(42,48,53,0.12);
+}
+
+.card-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.75) brightness(0.95);
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+.card:hover .card-img-wrap img {
+  transform: scale(1.07);
+  filter: saturate(0.9) brightness(1);
+}
+
+.card-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  color: var(--moss);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.card-body {
+  padding: 22px 22px 24px;
+}
+
+.card-body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.card-body p {
+  font-size: 0.83rem;
+  color: var(--mist);
+  line-height: 1.7;
+}
+
+.card-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pebble);
+}
+
+.duration {
+  font-size: 0.75rem;
+  color: var(--clay);
+  letter-spacing: 0.06em;
+}
+
+.join-btn {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--sage);
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.card:hover .join-btn {
+  background: var(--moss);
+  color: #fff;
+  border-color: var(--moss);
+}
+
+/* ── FORM ── */
+.form-section {
+  position: relative;
+  background: var(--dusk);
+  border-radius: 24px;
+  padding: 56px 56px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(42,48,53,0.15);
+}
+
+.form-section::before {
+  content: "☽";
+  position: absolute;
+  right: 48px;
+  top: 30px;
+  font-size: 9rem;
+  opacity: 0.05;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.form-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(122,158,135,0.12), transparent 60%);
+  pointer-events: none;
+}
+
+.form-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.form-section h2 em { font-style: italic; color: var(--sage); }
+
+.form-section .subtitle {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 30px;
+  letter-spacing: 0.05em;
+}
+
+#messageForm {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 16px 22px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(168,197,176,0.25);
+  border-radius: 12px;
+  font-size: 0.93rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 0.03em;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+input[type="text"]::placeholder { color: rgba(255,255,255,0.28); }
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--sage);
+  background: rgba(255,255,255,0.10);
+}
+
+input[type="submit"] {
+  padding: 16px 34px;
+  background: var(--moss);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+  box-shadow: 0 6px 24px rgba(122,158,135,0.35);
+  white-space: nowrap;
+}
+
+input[type="submit"]:hover {
+  background: #6a8f76;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(122,158,135,0.45);
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  font-size: 0.8rem;
+  color: var(--mist);
+  letter-spacing: 0.1em;
+}
+
+.footer strong { color: var(--moss); font-weight: 500; }
+
+/* ── CHETAN NAME STYLE ── */
+.chetan-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--moss);
+  letter-spacing: 0.02em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 680px) {
+  .about { grid-template-columns: 1fr; }
+  .about-accent { padding: 30px; font-size: 3rem; }
+  .about-body { padding: 28px 26px; }
+  .form-section { padding: 36px 22px; }
+  .hero h1 { font-size: 3.2rem; }
 }
 
 </style>
@@ -184,88 +541,135 @@ color:#777;
 
 <body>
 
-<!-- HERO SECTION -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- HERO -->
 <div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-veil"></div>
+  <div class="ripple"></div>
+  <div class="ripple"></div>
+  <div class="ripple"></div>
 
-<div class="hero-content">
+  <div class="hero-content">
+    <span class="hero-symbol">🧘</span>
+    <h1><span class="chetan-name">Chetan</span>'s<br><em>Meditation Group</em></h1>
+    <div class="hero-divider"></div>
+    <p>A gentle space for stillness, breathwork, and mindful living.<br>Come as you are. Leave lighter than you arrived.</p>
+  </div>
 
-<h1>Welcome to Suchith's Group 🌍</h1>
-
-<p>Discover Beautiful Places & Share Your Journey</p>
-
-</div>
-
+  <div class="scroll-hint">
+    <span>↓</span>
+    Breathe & Scroll
+  </div>
 </div>
 
 <div class="container">
 
-<!-- ABOUT -->
+  <!-- ABOUT -->
+  <div class="about">
+    <div class="about-accent">🌿</div>
+    <div class="about-body">
+      <h2>About <em>Our Community</em></h2>
+      <p>
+        <span class="chetan-name">Chetan</span>'s Group is a warm community for mindfulness seekers and meditation practitioners.
+        Discover calming sessions, explore healing practices, and share your journey toward inner calm with fellow souls on the same path.
+      </p>
+    </div>
+  </div>
 
-<div class="about">
+  <!-- PRACTICES -->
+  <div class="section-header">
+    <h2>Mindful <em>Practices</em></h2>
+    <p class="sub">Explore &amp; Restore</p>
+    <div class="deco-line">
+      <span></span><i>✦</i><span></span>
+    </div>
+  </div>
 
-<h2>About Our Travel Community</h2>
+  <div class="card-grid">
 
-<p>
-Suchith's Group is a community for travelers and explorers.  
-Discover amazing destinations, view beautiful places, and share your travel experiences with others.
-</p>
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600" alt="Breathwork">
+        <span class="card-tag">Breathwork</span>
+      </div>
+      <div class="card-body">
+        <h3>Morning Breathwork</h3>
+        <p>Start your day with guided pranayama to awaken clarity and calm the nervous system.</p>
+        <div class="card-footer-row">
+          <span class="duration">🕐 20 min</span>
+          <span class="join-btn">Join Session</span>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1604480133435-25b86862d276?w=600" alt="Body Scan">
+        <span class="card-tag">Body Scan</span>
+      </div>
+      <div class="card-body">
+        <h3>Deep Body Scan</h3>
+        <p>Release tension from head to toe with this slow, restorative body awareness practice.</p>
+        <div class="card-footer-row">
+          <span class="duration">🕐 30 min</span>
+          <span class="join-btn">Join Session</span>
+        </div>
+      </div>
+    </div>
 
-<!-- DESTINATIONS -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1474418397713-7ede21d49118?w=600" alt="Nature">
+        <span class="card-tag">Nature</span>
+      </div>
+      <div class="card-body">
+        <h3>Forest Mindfulness</h3>
+        <p>Reconnect with nature through walking meditation and mindful sensory awareness.</p>
+        <div class="card-footer-row">
+          <span class="duration">🕐 45 min</span>
+          <span class="join-btn">Join Session</span>
+        </div>
+      </div>
+    </div>
 
-<div class="destinations">
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600" alt="Sleep">
+        <span class="card-tag">Sleep</span>
+      </div>
+      <div class="card-body">
+        <h3>Sleep Meditation</h3>
+        <p>A gentle evening ritual of Yoga Nidra and guided imagery for deep, restful sleep.</p>
+        <div class="card-footer-row">
+          <span class="duration">🕐 25 min</span>
+          <span class="join-btn">Join Session</span>
+        </div>
+      </div>
+    </div>
 
-<h2>Popular Destinations</h2>
+  </div>
 
-<div class="card-grid">
+  <!-- FORM -->
+  <div class="form-section">
+    <h2>Share Your <em>Journey</em></h2>
+    <p class="subtitle">How has your practice been? Let the community know.</p>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
-<h3>Beautiful Beach</h3>
-</div>
+    <form id="messageForm">
+      <input type="text" name="new_message" placeholder="Share a moment of peace, a question, or a reflection…" required>
+      <input type="submit" value="Offer It">
+    </form>
+  </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
-<h3>Mountain Adventure</h3>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e">
-<h3>Forest Escape</h3>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d">
-<h3>City Lights</h3>
-</div>
-
-</div>
-
-</div>
-
-<!-- MESSAGE FORM -->
-
-<div class="form-section">
-
-<h2>Share Your Travel Experience</h2>
-
-<form id="messageForm">
-
-<input type="text" name="new_message" placeholder="Share your travel story..." required>
-
-<input type="submit" value="Submit Message">
-
-</form>
-
-</div>
-
-<div class="footer">
-
-Built by <strong>Suchith K</strong>
-
-</div>
+  <div class="footer">
+    Crafted with stillness by <span class="chetan-name">Chetan K</span> &nbsp;·&nbsp; 🌸 Breathe deeply
+  </div>
 
 </div>
 
@@ -273,37 +677,47 @@ Built by <strong>Suchith K</strong>
 
 <script>
 
+/* custom cursor */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  ring.style.left   = e.clientX + 'px';
+  ring.style.top    = e.clientY + 'px';
+});
+
 $(document).ready(function(){
 
-$("#messageForm").on("submit",function(event){
+  $("#messageForm").on("submit",function(event){
 
-event.preventDefault();
+    event.preventDefault();
 
-let messageInput=$("input[name='new_message']");
-let message=messageInput.val().trim();
+    let messageInput=$("input[name='new_message']");
+    let message=messageInput.val().trim();
 
-if(message===""){
-alert("Message cannot be empty!");
-return;
-}
+    if(message===""){
+      alert("Message cannot be empty!");
+      return;
+    }
 
-$.ajax({
-url:"/submit",
-type:"POST",
-data:{new_message:message},
+    $.ajax({
+      url:"/submit",
+      type:"POST",
+      data:{new_message:message},
 
-success:function(response){
-messageInput.val("");
-alert("Message submitted successfully!");
-},
+      success:function(response){
+        messageInput.val("");
+        alert("Message submitted successfully!");
+      },
 
-error:function(){
-alert("Failed to submit message.");
-}
+      error:function(){
+        alert("Failed to submit message.");
+      }
 
-});
+    });
 
-});
+  });
 
 });
 
@@ -311,4 +725,3 @@ alert("Failed to submit message.");
 
 </body>
 </html>
-```
